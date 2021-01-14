@@ -40,7 +40,7 @@ from pathlib import Path
 from re import match
 from bl_operators.presets import AddPresetBase
 from bl_ui.utils import PresetPanel
-from mathutils import Vector,Color,Euler
+from mathutils import Vector,Color,Euler,Quaternion
 from shutil import copy2
 
 def propexpr(obj,expr):
@@ -84,7 +84,6 @@ class PROPCHART_OT_interpolate(Operator):
         obj2,prop2 = propexpr(last,expr)
         attr1 = getattr(obj1,prop1)
         attr2 = getattr(obj2,prop2)
-        print("type(attr1):",type(attr1))
         if isinstance(attr1,Vector):
             for n,ob in enumerate(obs[1:-1]):
                 fac = inc * (n+1)
@@ -93,12 +92,18 @@ class PROPCHART_OT_interpolate(Operator):
                 attrx[:] = attr1.lerp(attr2,fac)
         elif isinstance(attr1,Euler):
             for n,ob in enumerate(obs[1:-1]):
-                fac = inc * (n+1)
+                fac = inc * (n + 1)
                 objx,propx = propexpr(ob,expr)
                 attrx = getattr(objx,propx)
                 qa = attr1.to_quaternion()
                 qb = attr2.to_quaternion()
                 attrx[:] = qa.slerp(qb,fac).to_euler()
+        elif isinstance(attr1,Quaternion):
+            for n,ob in enumerate(obs[1:-1]):
+                fac = inc * (n + 1)
+                objx,propx = propexpr(ob,expr)
+                attrx = getattr(objx,propx)
+                attrx[:] = attr1.slerp(attr2,fac)
         elif isinstance(attr1,Color):
             r1,g1,b1 = attr1
             r2,g2,b2 = attr2
