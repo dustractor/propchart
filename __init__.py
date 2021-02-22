@@ -18,17 +18,16 @@
 
 bl_info = {
         "name": "PropChart",
-        "description":"Rework of the built-in version which allows for "
-        "indexed and keyed property access in addition to named "
-        " attribute access.",
         "author":"dustractor@gmail.com",
-        "version":(2,1),
         "blender":(2,80,0),
+        "category": "System",
+        "description":"Custom multi-object properties in the ui plus presets.",
         "location":"Viewport -> UI -> Chart",
         "warning":"",
         "wiki_url":"",
-        "tracker_url":"",
-        "category": "System" }
+        "tracker_url":"https://github.com/dustractor/propchart",
+        "version":(2,2)
+}
 
 from bpy.types import (
     Panel,Operator,bpy_prop_array,Object,Menu,PropertyGroup,WindowManager,
