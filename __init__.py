@@ -26,7 +26,7 @@ bl_info = {
         "warning":"",
         "wiki_url":"",
         "tracker_url":"https://github.com/dustractor/propchart",
-        "version":(2,2)
+        "version":(2,3)
 }
 
 from bpy.types import (
@@ -195,7 +195,7 @@ class PROPCHART_PT_panel(Panel):
         layout = self.layout
         box = layout.box()
         box.prop(context.window_manager.propchart,"value",
-                 text="",icon="LIGHTPROBE_GRID")
+                 text="",icon="VIEW_ORTHO")
         box.label(text=propchart_string)
         row = layout.row(align=True)
         row.prop_enum(prefs,"displaystyle","LIST",
